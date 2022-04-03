@@ -1,4 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitness/model/user_model.dart';
+import 'package:fitness/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({ Key? key }) : super(key: key);
@@ -21,15 +26,18 @@ class SlideRightRoute extends PageRouteBuilder
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+
+  final _auth = FirebaseAuth.instance;
+
   // form key
   final _formKey = GlobalKey<FormState>();
 
   //Controllers
-  final firstNameEditingController = new TextEditingController();
-  final secondNameEditingController = new TextEditingController();
-  final emailEditingController = new TextEditingController();
-  final passwordEditingController = new TextEditingController();
-  final confirmPasswordEditingController = new TextEditingController();
+  final firstNameEditingController = TextEditingController();
+  final secondNameEditingController = TextEditingController();
+  final emailEditingController = TextEditingController();
+  final passwordEditingController = TextEditingController();
+  final confirmPasswordEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +46,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       controller: firstNameEditingController,
       keyboardType: TextInputType.name,
      validator: (value) {
-        RegExp regex = new RegExp(r'^.{1,}$');
+        RegExp regex = RegExp(r'^.{1,}$');
         if(value!.isEmpty) {
           return("Please enter your firstname");
         }
@@ -53,11 +61,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.account_circle),
-        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "Firstname",
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+        hintStyle: const TextStyle(color: Colors.white70),
+        prefixIcon: const Icon(Icons.mail, color: Colors.white,),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+        hintText: "Email" ,
+        enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(25.0),
+        borderSide:  const BorderSide(color: Colors.white ),
+
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25.0),
+            borderSide:  const BorderSide(color: Colors.red ),
+
         ),
       ),
     );
@@ -67,7 +83,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       controller: secondNameEditingController,
       keyboardType: TextInputType.name,
       validator: (value) {
-        RegExp regex = new RegExp(r'^.{1,}$');
+        RegExp regex = RegExp(r'^.{1,}$');
         if(value!.isEmpty) {
           return("Please enter your secondname");
         }
@@ -83,11 +99,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.account_circle),
-        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "Secondname",
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+        hintStyle: const TextStyle(color: Colors.white70),
+        prefixIcon: const Icon(Icons.account_circle, color: Colors.white,),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+        hintText: "Firstname" ,
+        enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(25.0),
+        borderSide:  const BorderSide(color: Colors.white ),
+
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25.0),
+            borderSide:  const BorderSide(color: Colors.red ),
+
         ),
       ),
     );
@@ -112,11 +136,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.mail),
-        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "Email",
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+        hintStyle: const TextStyle(color: Colors.white70),
+        prefixIcon: const Icon(Icons.account_circle, color: Colors.white,),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+        hintText: "Secondname" ,
+        enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(25.0),
+        borderSide:  const BorderSide(color: Colors.white ),
+
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25.0),
+            borderSide:  const BorderSide(color: Colors.red ),
+
         ),
       ),
     );
@@ -126,7 +158,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       controller: passwordEditingController,
       obscureText: true,
       validator: (value) {
-        RegExp regex = new RegExp(r'^.{6,}$');
+        RegExp regex = RegExp(r'^.{6,}$');
         if(value!.isEmpty) {
           return("Please enter your password");
         }
@@ -134,17 +166,26 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         if(!regex.hasMatch(value)) {
           return("Please enter valid password(Min. 6 Characters)");
         }
+        return null;
       },
       onSaved: (value) {
         passwordEditingController.text = value!;
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.vpn_key),
-        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "Password",
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+        hintStyle: const TextStyle(color: Colors.white70),
+        prefixIcon: const Icon(Icons.vpn_key, color: Colors.white,),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+        hintText: "Password" ,
+        enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(25.0),
+        borderSide:  const BorderSide(color: Colors.white ),
+
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25.0),
+            borderSide:  const BorderSide(color: Colors.red ),
+
         ),
       ),
     );
@@ -154,7 +195,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       controller: confirmPasswordEditingController,
       obscureText: true,
       validator: (value) {
-        if(confirmPasswordEditingController.text.length > 5 && passwordEditingController.text != value) {
+        if(passwordEditingController.text != confirmPasswordEditingController.text) {
           return "Passwords do not match";
         }
 
@@ -165,11 +206,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.vpn_key),
-        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "Confirm Password",
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+        hintStyle: const TextStyle(color: Colors.white70),
+        prefixIcon: const Icon(Icons.vpn_key, color: Colors.white,),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+        hintText: "Confirm Password" ,
+        enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(25.0),
+        borderSide:  const BorderSide(color: Colors.white ),
+
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25.0),
+            borderSide:  const BorderSide(color: Colors.red ),
+
         ),
       ),
     );
@@ -179,12 +228,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       borderRadius: BorderRadius.circular(30),
       color: Colors.redAccent,
       child: MaterialButton(
-        padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
         onPressed: () {
           signUp(emailEditingController.text, passwordEditingController.text);
         },
-        child: const Text("Signup", 
+        child: const Text("Create Account", 
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 20,
           color: Colors.white,
@@ -196,20 +245,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: const Color.fromARGB(15, 49, 49, 49),
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.red),
+          icon: const Icon(Icons.arrow_back, color: Colors.red),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: const Color.fromARGB(255, 49, 49, 49),
       body: Center(
          child: SingleChildScrollView (
            child: Container(
-             color: Colors.white,
+             color: const Color.fromARGB(115, 49, 49, 49),
              child: Padding (
               padding: const EdgeInsets.all(36.0),
               child: Form(
@@ -219,7 +268,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(
-                    height: 180,
+                    height: 200,
                     child: Image.asset("assets/images/logo.png",
                     fit: BoxFit.contain,
                     )
@@ -252,7 +301,39 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   void signUp(String email, String password) async
   {
     if(_formKey.currentState!.validate()) {
-
+      await _auth.createUserWithEmailAndPassword(email: email, password: password)
+        .then((value) => {
+          postDetailsToFirestore()})
+        .catchError((e) {
+          Fluttertoast.showToast(msg: e!.message);
+        });
     }
+  }
+
+  postDetailsToFirestore() async {
+    // calling firestore 
+    // calling user model
+    // sending values
+
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    User? user = _auth.currentUser;
+
+    UserModel userModel = UserModel();
+
+    // writing values
+    userModel.email = user!.email;
+    userModel.uid = user.uid;
+    userModel.firstname = firstNameEditingController.text;
+    userModel.secondname = secondNameEditingController.text;
+
+    await firebaseFirestore
+      .collection("users")
+      .doc(user.uid)
+      .set(userModel.toMap());
+    Fluttertoast.showToast(msg: "Account Has Been Created");
+
+    Navigator.pushAndRemoveUntil((context), 
+    MaterialPageRoute(builder: (context) => const HomeScreen()),
+    (route) => false);
   }
 }
