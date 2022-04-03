@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "323981422935",
+    "project_id": "fitness-7de9d",
+    "storage_bucket": "fitness-7de9d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:323981422935:android:9de30f6ad2e3be79204e12",
+        "android_client_info": {
+          "package_name": "com.camsdonostudios.fitness.fitness"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "323981422935-08sakg0tc396gh06c5vk0q0v590j9kb4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.camsdonostudios.fitness.fitness",
+            "certificate_hash": "7505fc7cc7cbe53280bf6f4f2ac3ae9a643352fc"
+          }
+        },
+        {
+          "client_id": "323981422935-hh5trmf4e94ah5vfhkam750hp4b13cp9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5tWPazDzhjXSWQMl__rEEs2YW4s4wyU4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "323981422935-hh5trmf4e94ah5vfhkam750hp4b13cp9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

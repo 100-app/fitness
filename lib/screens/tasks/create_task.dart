@@ -8,6 +8,9 @@ class CreateTask extends StatefulWidget {
 
 class _CreateTask extends State<CreateTask> {
   CalendarFormat format = CalendarFormat.month;
+  DateTime selectedDay = DateTime.now();
+  DateTime focusedDay = DateTime.now();
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
@@ -18,15 +21,39 @@ class _CreateTask extends State<CreateTask> {
               child: Column(
                 children: <Widget>[
                   TableCalendar(
-                      focusedDay: DateTime.now(),
-                      firstDay: DateTime(2000),
-                      lastDay: DateTime(2050),
-                      calendarFormat: format,
-                      onFormatChanged: (CalendarFormat _format) {
-                        setState(() {
-                          format = _format;
-                        });
-                      }),
+                    focusedDay: selectedDay,
+                    firstDay: DateTime(2000),
+                    lastDay: DateTime(2050),
+                    calendarFormat: format,
+                    onFormatChanged: (CalendarFormat _format) {
+                      setState(() {
+                        format = _format;
+                      });
+                    },
+                    startingDayOfWeek: StartingDayOfWeek.monday,
+                    daysOfWeekVisible: true,
+                    onDaySelected: (DateTime selectDay, DateTime focusDay) {
+                      setState(() {
+                        selectedDay = selectDay;
+                        focusedDay = focusDay;
+                      });
+                    },
+                    calendarStyle: const CalendarStyle(
+                      isTodayHighlighted: true,
+                      selectedDecoration: BoxDecoration(
+                        color: Colors.deepPurpleAccent,
+                        shape: BoxShape.circle,
+                      ),
+                      todayDecoration: BoxDecoration(
+                        color: Colors.purpleAccent,
+                        shape: BoxShape.circle,
+                      ),
+                      selectedTextStyle: TextStyle(color: Colors.white),
+                    ),
+                    selectedDayPredicate: (DateTime date) {
+                      return isSameDay(selectedDay, date);
+                    },
+                  ),
                 ],
               ),
             ),
